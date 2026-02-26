@@ -1,131 +1,186 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Image Resizer - Pro Image Tools</title>
-  <style>
+<title>Image Resizer | Pro Image Tools</title>
+
+<style>
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+scroll-behavior:smooth;
 }
 
 body{
-background: linear-gradient(135deg,#eef2f7,#d9e2ec);
+background:linear-gradient(135deg,#eef2f7,#d9e2ec);
 color:#1f2937;
 min-height:100vh;
 display:flex;
 flex-direction:column;
 }
 
-.navbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px 40px;
+/* NAVBAR */
+nav{
 background:#0f172a;
-color:white;
+padding:15px;
+text-align:center;
+position:sticky;
+top:0;
+z-index:1000;
 }
 
-.logo{
-font-size:20px;
-font-weight:600;
-letter-spacing:0.5px;
-}
-
-.nav-links a{
+nav a{
 color:#cbd5e1;
-margin-left:20px;
+margin:0 15px;
 text-decoration:none;
-font-size:14px;
+font-weight:500;
 transition:0.3s;
 }
 
-.nav-links a:hover{
+nav a:hover{
 color:white;
 }
 
-.container{
-max-width:1100px;
-margin:60px auto;
-padding:20px;
+/* HERO */
+.hero{
+text-align:center;
+padding:60px 20px 30px 20px;
+background:white;
 }
 
-.card{
-background:white;
+.hero h1{
+font-size:30px;
+margin-bottom:10px;
+color:#0f172a;
+}
+
+.hero p{
+opacity:0.7;
+}
+
+/* TOOL CONTAINER */
+.container{
+max-width:700px;
+margin:40px auto;
 padding:30px;
+background:white;
 border-radius:16px;
 box-shadow:0 10px 30px rgba(0,0,0,0.08);
-transition:0.3s;
+text-align:center;
 }
 
-.card:hover{
-transform:translateY(-5px);
-}
-
-.button{
-display:inline-block;
+input{
 margin-top:15px;
-padding:12px 22px;
-background:#2563eb;
-color:white;
+padding:8px;
+width:100%;
+max-width:250px;
+border-radius:6px;
+border:1px solid #cbd5e1;
+}
+
+button{
+margin-top:20px;
+padding:12px 20px;
 border:none;
 border-radius:8px;
-text-decoration:none;
+background:#2563eb;
+color:white;
 cursor:pointer;
+font-size:15px;
 transition:0.3s;
-font-size:14px;
 }
 
-.button:hover{
+button:hover{
 background:#1e40af;
 }
 
-.tool-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:25px;
+.preview img{
+max-width:100%;
+margin-top:20px;
+border-radius:10px;
 }
 
+/* FOOTER */
 footer{
 margin-top:auto;
 padding:25px;
 text-align:center;
 background:#0f172a;
 color:#cbd5e1;
-font-size:14px;
 }
-  </style>
-<style>
-body{font-family:Arial;text-align:center;padding:30px;background:#f4f6f9;}
-input,button{margin:10px;padding:8px;}
-img{max-width:100%;margin-top:15px;}
+
+/* RESPONSIVE */
+@media (max-width:768px){
+
+.hero h1{
+font-size:22px;
+}
+
+.container{
+margin:20px;
+padding:20px;
+}
+
+button{
+width:100%;
+}
+
+nav a{
+display:inline-block;
+margin:8px 10px;
+}
+
+}
 </style>
 </head>
+
 <body>
 
-<nav style="background:#243b55;padding:15px;">
-<a href="index.html" style="color:white;text-decoration:none;">← Back to Home</a>
+<nav>
+<a href="index.html">Home</a>
+<a href="compressor.html">Compressor</a>
+<a href="resizer.html">Resizer</a>
+<a href="jpg-to-png.html">Converter</a>
 </nav>
 
-<h2>Image Resizer</h2>
+<section class="hero">
+<h1>Image Resizer</h1>
+<p>Resize image width and height instantly inside your browser.</p>
+</section>
+
+<div class="container">
 
 <input type="file" id="upload" accept="image/*"><br>
-Width: <input type="number" id="width" placeholder="Width">
-Height: <input type="number" id="height" placeholder="Height"><br>
-<button onclick="resizeImage()">Resize</button>
+<input type="number" id="width" placeholder="Width (px)">
+<input type="number" id="height" placeholder="Height (px)">
+<br>
+<button onclick="resizeImage()">Resize Image</button>
 
-<canvas id="canvas" style="display:none;"></canvas>
+<div class="preview">
 <img id="output">
+</div>
+
+</div>
+
+<footer>
+© 2026 Pro Image Tools — Secure • Fast • Professional
+</footer>
 
 <script>
 function resizeImage(){
 let file=document.getElementById("upload").files[0];
-if(!file){alert("Upload image first");return;}
+if(!file){alert("Please upload an image first!");return;}
+
 let width=document.getElementById("width").value;
 let height=document.getElementById("height").value;
+
+if(!width || !height){
+alert("Please enter width and height.");
+return;
+}
 
 let reader=new FileReader();
 reader.readAsDataURL(file);
@@ -133,12 +188,13 @@ reader.onload=function(e){
 let img=new Image();
 img.src=e.target.result;
 img.onload=function(){
-let canvas=document.getElementById("canvas");
-let ctx=canvas.getContext("2d");
+let canvas=document.createElement("canvas");
 canvas.width=width;
 canvas.height=height;
+let ctx=canvas.getContext("2d");
 ctx.drawImage(img,0,0,width,height);
-document.getElementById("output").src=canvas.toDataURL("image/jpeg");
+document.getElementById("output").src=
+canvas.toDataURL("image/jpeg");
 }
 }
 }
