@@ -3,117 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Compressor | Pro Image Tools</title>
 
-<meta name="google-site-verification" content="X-wrMkoPPUszHAtR51A4DTeLETqQaDirE7mSsNlG27w" />
-<meta name="description" content="Compress JPG and PNG images online for free. Reduce image size instantly without losing quality. Fast and secure image compressor tool.">
-<meta name="keywords" content="free image compressor online, reduce image size, compress jpg, compress png">
-
-<title>Free Image Compressor Online – Reduce JPG & PNG Size Instantly</title>
 <style>
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+scroll-behavior:smooth;
 }
 
 body{
-background: linear-gradient(135deg,#eef2f7,#d9e2ec);
+background:linear-gradient(135deg,#eef2f7,#d9e2ec);
 color:#1f2937;
 min-height:100vh;
 display:flex;
 flex-direction:column;
 }
 
-.navbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px 40px;
-background:#0f172a;
-color:white;
-}
-
-.logo{
-font-size:20px;
-font-weight:600;
-letter-spacing:0.5px;
-}
-
-.nav-links a{
-color:#cbd5e1;
-margin-left:20px;
-text-decoration:none;
-font-size:14px;
-transition:0.3s;
-}
-
-.nav-links a:hover{
-color:white;
-}
-
-.container{
-max-width:1100px;
-margin:60px auto;
-padding:20px;
-}
-
-.card{
-background:white;
-padding:30px;
-border-radius:16px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
-transition:0.3s;
-}
-
-.card:hover{
-transform:translateY(-5px);
-}
-
-.button{
-display:inline-block;
-margin-top:15px;
-padding:12px 22px;
-background:#2563eb;
-color:white;
-border:none;
-border-radius:8px;
-text-decoration:none;
-cursor:pointer;
-transition:0.3s;
-font-size:14px;
-}
-
-.button:hover{
-background:#1e40af;
-}
-
-.tool-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:25px;
-}
-
-footer{
-margin-top:auto;
-padding:25px;
-text-align:center;
-background:#0f172a;
-color:#cbd5e1;
-font-size:14px;
-}
-</style>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;scroll-behavior:smooth;}
-
-body{
-background:#f4f6f9;
-color:#333;
-}
-
 /* NAVBAR */
 nav{
-background:#243b55;
+background:#0f172a;
 padding:15px;
 text-align:center;
 position:sticky;
@@ -122,93 +33,129 @@ z-index:1000;
 }
 
 nav a{
-color:white;
+color:#cbd5e1;
 margin:0 15px;
 text-decoration:none;
 font-weight:500;
+transition:0.3s;
+}
+
+nav a:hover{
+color:white;
 }
 
 /* HERO */
 .hero{
 text-align:center;
-padding:40px 20px;
+padding:60px 20px 30px 20px;
 background:white;
 }
 
 .hero h1{
-color:#243b55;
+font-size:30px;
 margin-bottom:10px;
+color:#0f172a;
 }
 
-/* TOOL CARD */
+.hero p{
+opacity:0.7;
+}
+
+/* TOOL CONTAINER */
 .container{
-background:white;
-margin:20px auto;
+max-width:700px;
+margin:40px auto;
 padding:30px;
-border-radius:15px;
-width:95%;
-max-width:600px;
-text-align:center;
-box-shadow:0 10px 30px rgba(0,0,0,0.1);
+background:white;
+border-radius:16px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
 }
 
+/* UPLOAD AREA */
 .drop-area{
-border:2px dashed #243b55;
+border:2px dashed #2563eb;
 padding:25px;
 border-radius:12px;
 cursor:pointer;
 margin-bottom:15px;
+transition:0.3s;
 }
 
-input[type="file"]{display:none;}
+.drop-area:hover{
+background:#f1f5f9;
+}
+
+input[type="file"]{
+display:none;
+}
+
+.range-box{
+margin-top:15px;
+}
 
 button{
-margin-top:10px;
-padding:12px 25px;
+margin-top:20px;
+padding:12px 20px;
 border:none;
 border-radius:8px;
-background:#243b55;
-color:#fff;
+background:#2563eb;
+color:white;
 cursor:pointer;
+font-size:15px;
+transition:0.3s;
+}
+
+button:hover{
+background:#1e40af;
 }
 
 .preview img{
 max-width:100%;
-margin-top:15px;
-border-radius:8px;
+margin-top:20px;
+border-radius:10px;
 }
 
 .download{
 display:none;
-margin-top:10px;
-background:#243b55;
-color:#fff;
-padding:8px 12px;
-border-radius:6px;
-text-decoration:none;
-}
-
-/* SECTION */
-.section{
-max-width:900px;
-margin:60px auto;
-padding:20px;
-line-height:1.7;
-background:white;
-border-radius:12px;
-}
-
-.section h2{
-color:#243b55;
-margin-bottom:10px;
-}
-
-footer{
-text-align:center;
-padding:25px;
-background:#243b55;
+margin-top:15px;
+background:#0f172a;
 color:white;
-margin-top:40px;
+padding:10px 18px;
+border-radius:8px;
+text-decoration:none;
+display:inline-block;
+}
+
+/* FOOTER */
+footer{
+margin-top:auto;
+padding:25px;
+text-align:center;
+background:#0f172a;
+color:#cbd5e1;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width:768px){
+
+.hero h1{
+font-size:22px;
+}
+
+.container{
+margin:20px;
+padding:20px;
+}
+
+button{
+width:100%;
+}
+
+nav a{
+display:inline-block;
+margin:8px 10px;
+}
+
 }
 </style>
 </head>
@@ -216,58 +163,41 @@ margin-top:40px;
 <body>
 
 <nav>
-<a href="#home">Home</a>
-<a href="#about">About</a>
-<a href="#privacy">Privacy</a>
-<a href="#contact">Contact</a>
+<a href="index.html">Home</a>
+<a href="compressor.html">Compressor</a>
+<a href="resizer.html">Resizer</a>
+<a href="jpg-to-png.html">Converter</a>
 </nav>
 
-<section class="hero" id="home">
-<h1>Free Image Compressor Online</h1>
-<p>Reduce JPG & PNG image size instantly without losing quality.</p>
+<section class="hero">
+<h1>Image Compressor</h1>
+<p>Reduce image size instantly without noticeable quality loss.</p>
 </section>
 
 <div class="container">
+
 <div class="drop-area" id="dropArea">
 Click or Drag & Drop Image Here
 <input type="file" id="imageInput" accept="image/*">
 </div>
 
-Compression Quality: <span id="qualityValue">0.7</span>
+<div class="range-box">
+Compression Quality: <strong><span id="qualityValue">0.7</span></strong>
+<br>
 <input type="range" id="qualitySlider" min="0.1" max="1" step="0.1" value="0.7">
+</div>
 
-<button onclick="compressImage()" aria-label="Compress uploaded image">Compress Now</button>
+<button onclick="compressImage()">Compress Image</button>
 
 <div class="preview">
 <img id="previewImage">
 <a id="downloadLink" class="download">Download Compressed Image</a>
 </div>
+
 </div>
 
-<section class="section" id="about">
-<h2>About Us</h2>
-<p>
-Pro Image Tools is a free online platform designed to help users compress and optimize images quickly and securely. Our tools work directly in your browser without uploading files to any server.
-</p>
-</section>
-
-<section class="section" id="privacy">
-<h2>Privacy Policy</h2>
-<p>
-We do not store, upload, or share your images. All image processing happens locally in your browser. Your data remains private and secure.
-</p>
-</section>
-
-<section class="section" id="contact">
-<h2>Contact Us</h2>
-<p>
-For support or suggestions, contact us at:
-<br><strong>Email:</strong> freedebnath6@email.com
-</p>
-</section>
-
 <footer>
-© 2026 Pro Image Tools | All Rights Reserved
+© 2026 Pro Image Tools — Secure • Fast • Professional
 </footer>
 
 <script>
@@ -298,6 +228,7 @@ canvas.height=img.height;
 ctx.drawImage(img,0,0);
 let compressedData=canvas.toDataURL("image/jpeg",slider.value);
 document.getElementById("previewImage").src=compressedData;
+
 let downloadLink=document.getElementById("downloadLink");
 downloadLink.href=compressedData;
 downloadLink.download="compressed-image.jpg";
