@@ -15,7 +15,10 @@ scroll-behavior:smooth;
 }
 
 body{
-background:linear-gradient(135deg,#eef2f7,#d9e2ec);
+background:
+radial-gradient(circle at 20% 30%, rgba(37,99,235,0.08), transparent 40%),
+radial-gradient(circle at 80% 70%, rgba(30,64,175,0.08), transparent 40%),
+linear-gradient(135deg,#eef2f7,#d9e2ec);
 color:#1f2937;
 min-height:100vh;
 display:flex;
@@ -24,8 +27,9 @@ flex-direction:column;
 
 /* NAVBAR */
 nav{
-background:#0f172a;
-padding:15px;
+background:rgba(15,23,42,0.9);
+backdrop-filter:blur(8px);
+padding:18px;
 text-align:center;
 position:sticky;
 top:0;
@@ -47,66 +51,108 @@ color:white;
 /* HERO */
 .hero{
 text-align:center;
-padding:60px 20px 30px 20px;
-background:white;
+padding:80px 20px 60px;
+background:linear-gradient(135deg,#ffffff,#f1f5f9);
 }
 
 .hero h1{
-font-size:30px;
-margin-bottom:10px;
-color:#0f172a;
+font-size:34px;
+margin-bottom:12px;
+font-weight:700;
+background:linear-gradient(135deg,#0f172a,#2563eb);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
 .hero p{
-opacity:0.7;
+opacity:0.75;
+max-width:600px;
+margin:0 auto;
 }
 
-/* TOOL CONTAINER */
+/* TOOL BOX */
 .container{
-max-width:700px;
-margin:40px auto;
-padding:30px;
+max-width:750px;
+margin:60px auto;
+padding:40px;
 background:white;
-border-radius:16px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
+border-radius:22px;
+box-shadow:0 20px 60px rgba(0,0,0,0.08);
 text-align:center;
 }
 
-input{
-margin-top:15px;
-padding:8px;
-width:100%;
-max-width:250px;
-border-radius:6px;
+.upload-box{
+border:2px dashed #2563eb;
+padding:35px;
+border-radius:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.upload-box.active{
+background:#e0ecff;
+}
+
+input[type="file"]{
+display:none;
+}
+
+.dimension-inputs{
+margin-top:25px;
+display:flex;
+justify-content:center;
+gap:15px;
+flex-wrap:wrap;
+}
+
+.dimension-inputs input{
+padding:10px;
+width:130px;
+border-radius:8px;
 border:1px solid #cbd5e1;
+text-align:center;
 }
 
 button{
-margin-top:20px;
-padding:12px 20px;
+margin-top:25px;
+padding:14px 24px;
 border:none;
-border-radius:8px;
-background:#2563eb;
+border-radius:12px;
+background:linear-gradient(135deg,#2563eb,#1e40af);
 color:white;
-cursor:pointer;
 font-size:15px;
+cursor:pointer;
 transition:0.3s;
 }
 
 button:hover{
-background:#1e40af;
+transform:translateY(-3px);
+box-shadow:0 12px 30px rgba(37,99,235,0.4);
+}
+
+button:disabled{
+opacity:0.6;
+cursor:not-allowed;
+}
+
+.result{
+margin-top:30px;
+padding:25px;
+background:#f1f5f9;
+border-radius:16px;
+display:none;
 }
 
 .preview img{
 max-width:100%;
-margin-top:20px;
-border-radius:10px;
+margin-top:15px;
+border-radius:12px;
 }
 
 /* FOOTER */
 footer{
 margin-top:auto;
-padding:25px;
+padding:35px;
 text-align:center;
 background:#0f172a;
 color:#cbd5e1;
@@ -116,12 +162,16 @@ color:#cbd5e1;
 @media (max-width:768px){
 
 .hero h1{
-font-size:22px;
+font-size:24px;
 }
 
 .container{
-margin:20px;
-padding:20px;
+margin:30px 20px;
+padding:25px;
+}
+
+.dimension-inputs{
+flex-direction:column;
 }
 
 button{
@@ -148,19 +198,28 @@ margin:8px 10px;
 
 <section class="hero">
 <h1>Image Resizer</h1>
-<p>Resize image width and height instantly inside your browser.</p>
+<p>Resize image width and height instantly — fully browser-based and secure.</p>
 </section>
 
 <div class="container">
 
-<input type="file" id="upload" accept="image/*"><br>
-<input type="number" id="width" placeholder="Width (px)">
-<input type="number" id="height" placeholder="Height (px)">
-<br>
-<button onclick="resizeImage()">Resize Image</button>
+<div class="upload-box" id="uploadBox">
+Click or Drag & Drop Image Here
+<input type="file" id="fileInput" accept="image/*">
+</div>
 
+<div class="dimension-inputs">
+<input type="number" id="widthInput" placeholder="Width (px)">
+<input type="number" id="heightInput" placeholder="Height (px)">
+</div>
+
+<button id="resizeBtn" onclick="resizeImage()">Resize Image</button>
+
+<div class="result" id="resultBox">
+<p><strong>New Dimensions:</strong> <span id="newSize"></span></p>
 <div class="preview">
-<img id="output">
+<img id="outputImage">
+</div>
 </div>
 
 </div>
@@ -170,33 +229,80 @@ margin:8px 10px;
 </footer>
 
 <script>
+const uploadBox=document.getElementById("uploadBox");
+const fileInput=document.getElementById("fileInput");
+const resizeBtn=document.getElementById("resizeBtn");
+
+let selectedFile;
+
+uploadBox.addEventListener("click",()=>fileInput.click());
+
+fileInput.addEventListener("change",(e)=>{
+selectedFile=e.target.files[0];
+});
+
+uploadBox.addEventListener("dragover",(e)=>{
+e.preventDefault();
+uploadBox.classList.add("active");
+});
+
+uploadBox.addEventListener("dragleave",()=>{
+uploadBox.classList.remove("active");
+});
+
+uploadBox.addEventListener("drop",(e)=>{
+e.preventDefault();
+selectedFile=e.dataTransfer.files[0];
+uploadBox.classList.remove("active");
+});
+
 function resizeImage(){
-let file=document.getElementById("upload").files[0];
-if(!file){alert("Please upload an image first!");return;}
 
-let width=document.getElementById("width").value;
-let height=document.getElementById("height").value;
-
-if(!width || !height){
-alert("Please enter width and height.");
+if(!selectedFile){
+alert("Please upload an image first!");
 return;
 }
 
+let width=document.getElementById("widthInput").value;
+let height=document.getElementById("heightInput").value;
+
+if(!width || !height){
+alert("Enter width and height.");
+return;
+}
+
+resizeBtn.disabled=true;
+resizeBtn.textContent="Processing...";
+
 let reader=new FileReader();
-reader.readAsDataURL(file);
+reader.readAsDataURL(selectedFile);
+
 reader.onload=function(e){
 let img=new Image();
 img.src=e.target.result;
+
 img.onload=function(){
+
 let canvas=document.createElement("canvas");
 canvas.width=width;
 canvas.height=height;
+
 let ctx=canvas.getContext("2d");
 ctx.drawImage(img,0,0,width,height);
-document.getElementById("output").src=
-canvas.toDataURL("image/jpeg");
+
+let resizedData=canvas.toDataURL("image/jpeg");
+
+document.getElementById("outputImage").src=resizedData;
+document.getElementById("newSize").textContent=width+" x "+height+" px";
+
+document.getElementById("resultBox").style.display="block";
+
+resizeBtn.disabled=false;
+resizeBtn.textContent="Resize Image";
+
 }
 }
+
 }
 </script>
 
