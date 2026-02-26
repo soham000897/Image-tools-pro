@@ -5,45 +5,59 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <meta name="google-site-verification" content="X-wrMkoPPUszHAtR51A4DTeLETqQaDirE7mSsNlG27w" />
+<meta name="description" content="Compress JPG and PNG images online for free. Reduce image size instantly without losing quality. Fast and secure image compressor tool.">
+<meta name="keywords" content="free image compressor online, reduce image size, compress jpg, compress png">
 
-<meta name="description" content="Free online image compressor tool. Reduce image size instantly without losing quality. Fast, secure and mobile friendly.">
-<meta name="keywords" content="image compressor, reduce image size, compress jpg online, image optimizer free">
-<title>Pro Image Compressor | Free Online Tool</title>
+<title>Free Image Compressor Online – Reduce JPG & PNG Size Instantly</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;scroll-behavior:smooth;}
 
 body{
-background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-color:#fff;
-min-height:100vh;
-display:flex;
-flex-direction:column;
-align-items:center;
-}
-
-header{
-width:100%;
-padding:20px;
-text-align:center;
-font-size:22px;
-font-weight:bold;
-background:rgba(0,0,0,0.2);
-}
-
-.container{
-background:#fff;
+background:#f4f6f9;
 color:#333;
-margin-top:30px;
+}
+
+/* NAVBAR */
+nav{
+background:#243b55;
+padding:15px;
+text-align:center;
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+nav a{
+color:white;
+margin:0 15px;
+text-decoration:none;
+font-weight:500;
+}
+
+/* HERO */
+.hero{
+text-align:center;
+padding:40px 20px;
+background:white;
+}
+
+.hero h1{
+color:#243b55;
+margin-bottom:10px;
+}
+
+/* TOOL CARD */
+.container{
+background:white;
+margin:20px auto;
 padding:30px;
 border-radius:15px;
 width:95%;
-max-width:550px;
+max-width:600px;
 text-align:center;
-box-shadow:0 20px 50px rgba(0,0,0,0.4);
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
 }
-
-h1{margin-bottom:15px;color:#243b55;}
 
 .drop-area{
 border:2px dashed #243b55;
@@ -51,15 +65,9 @@ padding:25px;
 border-radius:12px;
 cursor:pointer;
 margin-bottom:15px;
-transition:0.3s;
-font-size:14px;
 }
 
-.drop-area:hover{background:#f2f2f2;}
 input[type="file"]{display:none;}
-
-.slider-container{margin:15px 0;}
-input[type="range"]{width:100%;}
 
 button{
 margin-top:10px;
@@ -69,15 +77,12 @@ border-radius:8px;
 background:#243b55;
 color:#fff;
 cursor:pointer;
-font-size:15px;
 }
-
-button:hover{background:#0f2027;}
 
 .preview img{
 max-width:100%;
-border-radius:8px;
 margin-top:15px;
+border-radius:8px;
 }
 
 .download{
@@ -90,116 +95,86 @@ border-radius:6px;
 text-decoration:none;
 }
 
-.info{margin-top:10px;font-size:14px;color:#444;}
+/* SECTION */
+.section{
+max-width:900px;
+margin:60px auto;
+padding:20px;
+line-height:1.7;
+background:white;
+border-radius:12px;
+}
 
-.ad-space{
-margin-top:25px;
-padding:15px;
-background:#eee;
-color:#555;
-border-radius:8px;
-font-size:14px;
+.section h2{
+color:#243b55;
+margin-bottom:10px;
 }
 
 footer{
-margin-top:auto;
-padding:15px;
-font-size:13px;
-opacity:0.8;
-}
-
-/* SEO SECTION STYLE */
-.seo-section{
-max-width:800px;
-margin:40px auto;
+text-align:center;
 padding:25px;
-background:#ffffff;
-color:#333;
-border-radius:12px;
-line-height:1.7;
-}
-
-.seo-section h2,
-.seo-section h3{
-margin-top:15px;
-color:#243b55;
-}
-
-.seo-section ul,
-.seo-section ol{
-margin-left:20px;
+background:#243b55;
+color:white;
+margin-top:40px;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-Pro Image Compressor Tool
-</header>
+<nav>
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#privacy">Privacy</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<section class="hero" id="home">
+<h1>Free Image Compressor Online</h1>
+<p>Reduce JPG & PNG image size instantly without losing quality.</p>
+</section>
 
 <div class="container">
-<h1>Compress Your Image Instantly</h1>
-
 <div class="drop-area" id="dropArea">
 Click or Drag & Drop Image Here
 <input type="file" id="imageInput" accept="image/*">
 </div>
 
-<div class="slider-container">
 Compression Quality: <span id="qualityValue">0.7</span>
 <input type="range" id="qualitySlider" min="0.1" max="1" step="0.1" value="0.7">
-</div>
 
-<button onclick="compressImage()">Compress Now</button>
-
-<div class="info" id="sizeInfo"></div>
+<button onclick="compressImage()" aria-label="Compress uploaded image">Compress Now</button>
 
 <div class="preview">
 <img id="previewImage">
 <a id="downloadLink" class="download">Download Compressed Image</a>
 </div>
-
-<div class="ad-space">
-Ad Space (Paste AdSense Code Here)
-</div>
 </div>
 
-<!-- SEO CONTENT START -->
-<section class="seo-section">
-<h2>Free Image Compressor Online</h2>
+<section class="section" id="about">
+<h2>About Us</h2>
 <p>
-Our Professional Image Compressor helps you reduce image file size instantly without noticeable quality loss. Optimizing images improves website speed, SEO ranking, and overall performance.
+Pro Image Tools is a free online platform designed to help users compress and optimize images quickly and securely. Our tools work directly in your browser without uploading files to any server.
 </p>
-
-<h3>How to Compress Image Online?</h3>
-<ol>
-<li>Upload your image using drag & drop.</li>
-<li>Adjust compression quality.</li>
-<li>Click Compress Now.</li>
-<li>Download your optimized image instantly.</li>
-</ol>
-
-<h3>Why Use This Tool?</h3>
-<ul>
-<li>Free and secure</li>
-<li>No login required</li>
-<li>Mobile friendly</li>
-<li>Instant processing</li>
-<li>No watermark</li>
-</ul>
-
-<h3>Frequently Asked Questions</h3>
-<p><strong>Does this tool reduce quality?</strong><br>
-Smart compression maintains visual clarity while reducing file size.</p>
-
-<p><strong>Is my image stored?</strong><br>
-No. All compression happens in your browser.</p>
 </section>
-<!-- SEO CONTENT END -->
+
+<section class="section" id="privacy">
+<h2>Privacy Policy</h2>
+<p>
+We do not store, upload, or share your images. All image processing happens locally in your browser. Your data remains private and secure.
+</p>
+</section>
+
+<section class="section" id="contact">
+<h2>Contact Us</h2>
+<p>
+For support or suggestions, contact us at:
+<br><strong>Email:</strong> your@email.com
+</p>
+</section>
 
 <footer>
-© 2026 Pro Image Compressor | Fast • Secure • Free
+© 2026 Pro Image Tools | All Rights Reserved
 </footer>
 
 <script>
@@ -211,9 +186,8 @@ let selectedFile;
 
 dropArea.addEventListener("click",()=>fileInput.click());
 fileInput.addEventListener("change",(e)=>{selectedFile=e.target.files[0];});
-dropArea.addEventListener("dragover",(e)=>{e.preventDefault();dropArea.style.background="#e6e6e6";});
-dropArea.addEventListener("dragleave",()=>{dropArea.style.background="";});
-dropArea.addEventListener("drop",(e)=>{e.preventDefault();selectedFile=e.dataTransfer.files[0];dropArea.style.background="";});
+dropArea.addEventListener("dragover",(e)=>{e.preventDefault();});
+dropArea.addEventListener("drop",(e)=>{e.preventDefault();selectedFile=e.dataTransfer.files[0];});
 slider.addEventListener("input",()=>{qualityValue.textContent=slider.value;});
 
 function compressImage(){
@@ -235,9 +209,6 @@ let downloadLink=document.getElementById("downloadLink");
 downloadLink.href=compressedData;
 downloadLink.download="compressed-image.jpg";
 downloadLink.style.display="inline-block";
-let originalSize=(selectedFile.size/1024).toFixed(2);
-let compressedSize=((compressedData.length*3/4)/1024).toFixed(2);
-document.getElementById("sizeInfo").innerHTML="Original: "+originalSize+" KB | Compressed: "+compressedSize+" KB";
 }
 }
 }
