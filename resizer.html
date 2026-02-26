@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Resizer - Pro Image Tools</title>
+<style>
+body{font-family:Arial;text-align:center;padding:30px;background:#f4f6f9;}
+input,button{margin:10px;padding:8px;}
+img{max-width:100%;margin-top:15px;}
+</style>
+</head>
+<body>
+
+<nav style="background:#243b55;padding:15px;">
+<a href="index.html" style="color:white;text-decoration:none;">← Back to Home</a>
+</nav>
+
+<h2>Image Resizer</h2>
+
+<input type="file" id="upload" accept="image/*"><br>
+Width: <input type="number" id="width" placeholder="Width">
+Height: <input type="number" id="height" placeholder="Height"><br>
+<button onclick="resizeImage()">Resize</button>
+
+<canvas id="canvas" style="display:none;"></canvas>
+<img id="output">
+
+<script>
+function resizeImage(){
+let file=document.getElementById("upload").files[0];
+if(!file){alert("Upload image first");return;}
+let width=document.getElementById("width").value;
+let height=document.getElementById("height").value;
+
+let reader=new FileReader();
+reader.readAsDataURL(file);
+reader.onload=function(e){
+let img=new Image();
+img.src=e.target.result;
+img.onload=function(){
+let canvas=document.getElementById("canvas");
+let ctx=canvas.getContext("2d");
+canvas.width=width;
+canvas.height=height;
+ctx.drawImage(img,0,0,width,height);
+document.getElementById("output").src=canvas.toDataURL("image/jpeg");
+}
+}
+}
+</script>
+
+</body>
+</html>
