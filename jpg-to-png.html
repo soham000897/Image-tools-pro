@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JPG to PNG Converter</title>
+</head>
+<body style="font-family:Arial;text-align:center;padding:30px;background:#f4f6f9;">
+
+<nav style="background:#243b55;padding:15px;">
+<a href="index.html" style="color:white;text-decoration:none;">← Back to Home</a>
+</nav>
+
+<h2>JPG ↔ PNG Converter</h2>
+
+<input type="file" id="file" accept="image/*"><br>
+<button onclick="convert()">Convert to PNG</button>
+
+<img id="preview" style="max-width:100%;margin-top:15px;">
+
+<script>
+function convert(){
+let file=document.getElementById("file").files[0];
+if(!file){alert("Upload image first");return;}
+
+let reader=new FileReader();
+reader.readAsDataURL(file);
+reader.onload=function(e){
+let img=new Image();
+img.src=e.target.result;
+img.onload=function(){
+let canvas=document.createElement("canvas");
+canvas.width=img.width;
+canvas.height=img.height;
+let ctx=canvas.getContext("2d");
+ctx.drawImage(img,0,0);
+document.getElementById("preview").src=
+canvas.toDataURL("image/png");
+}
+}
+}
+</script>
+
+</body>
+</html>
