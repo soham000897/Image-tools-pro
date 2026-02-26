@@ -27,9 +27,6 @@ nav{
 background:#0f172a;
 padding:15px;
 text-align:center;
-position:sticky;
-top:0;
-z-index:1000;
 }
 
 nav a{
@@ -47,42 +44,41 @@ color:white;
 /* HERO */
 .hero{
 text-align:center;
-padding:60px 20px 30px 20px;
+padding:60px 20px 30px;
 background:white;
 }
 
 .hero h1{
-font-size:30px;
-margin-bottom:10px;
-color:#0f172a;
+font-size:28px;
+margin-bottom:8px;
 }
 
 .hero p{
 opacity:0.7;
 }
 
-/* TOOL CONTAINER */
+/* TOOL BOX */
 .container{
-max-width:700px;
+max-width:750px;
 margin:40px auto;
 padding:30px;
 background:white;
-border-radius:16px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
+border-radius:20px;
+box-shadow:0 15px 40px rgba(0,0,0,0.08);
 }
 
 /* UPLOAD AREA */
 .drop-area{
 border:2px dashed #2563eb;
-padding:25px;
-border-radius:12px;
+padding:30px;
+border-radius:14px;
+text-align:center;
 cursor:pointer;
-margin-bottom:15px;
 transition:0.3s;
 }
 
-.drop-area:hover{
-background:#f1f5f9;
+.drop-area.active{
+background:#e0ecff;
 }
 
 input[type="file"]{
@@ -90,37 +86,57 @@ display:none;
 }
 
 .range-box{
-margin-top:15px;
+margin-top:20px;
 }
 
 button{
 margin-top:20px;
-padding:12px 20px;
+padding:14px 22px;
 border:none;
-border-radius:8px;
-background:#2563eb;
+border-radius:10px;
+background:linear-gradient(135deg,#2563eb,#1e40af);
 color:white;
-cursor:pointer;
 font-size:15px;
+cursor:pointer;
 transition:0.3s;
 }
 
 button:hover{
-background:#1e40af;
+transform:translateY(-2px);
+box-shadow:0 8px 20px rgba(37,99,235,0.4);
+}
+
+button:disabled{
+opacity:0.6;
+cursor:not-allowed;
+}
+
+/* RESULT BOX */
+.result{
+margin-top:25px;
+padding:20px;
+background:#f1f5f9;
+border-radius:12px;
+display:none;
+}
+
+.result p{
+margin-bottom:8px;
+font-size:14px;
 }
 
 .preview img{
 max-width:100%;
-margin-top:20px;
+margin-top:15px;
 border-radius:10px;
 }
 
 .download{
 display:none;
 margin-top:15px;
+padding:10px 18px;
 background:#0f172a;
 color:white;
-padding:10px 18px;
 border-radius:8px;
 text-decoration:none;
 display:inline-block;
@@ -135,27 +151,19 @@ background:#0f172a;
 color:#cbd5e1;
 }
 
-/* ===== RESPONSIVE ===== */
+/* RESPONSIVE */
 @media (max-width:768px){
-
-.hero h1{
-font-size:22px;
-}
-
 .container{
 margin:20px;
 padding:20px;
 }
-
 button{
 width:100%;
 }
-
 nav a{
 display:inline-block;
 margin:8px 10px;
 }
-
 }
 </style>
 </head>
@@ -171,7 +179,7 @@ margin:8px 10px;
 
 <section class="hero">
 <h1>Image Compressor</h1>
-<p>Reduce image size instantly without noticeable quality loss.</p>
+<p>Reduce image size instantly while maintaining visual quality.</p>
 </section>
 
 <div class="container">
@@ -182,16 +190,22 @@ Click or Drag & Drop Image Here
 </div>
 
 <div class="range-box">
-Compression Quality: <strong><span id="qualityValue">0.7</span></strong>
+Compression Quality:
+<strong><span id="qualityValue">0.7</span></strong>
 <br>
 <input type="range" id="qualitySlider" min="0.1" max="1" step="0.1" value="0.7">
 </div>
 
-<button onclick="compressImage()">Compress Image</button>
+<button id="compressBtn" onclick="compressImage()">Compress Image</button>
 
+<div class="result" id="resultBox">
+<p><strong>Original Size:</strong> <span id="originalSize"></span></p>
+<p><strong>Compressed Size:</strong> <span id="compressedSize"></span></p>
+<p><strong>Reduction:</strong> <span id="reduction"></span></p>
 <div class="preview">
 <img id="previewImage">
-<a id="downloadLink" class="download">Download Compressed Image</a>
+</div>
+<a id="downloadLink" class="download">Download Image</a>
 </div>
 
 </div>
@@ -205,36 +219,87 @@ const dropArea=document.getElementById("dropArea");
 const fileInput=document.getElementById("imageInput");
 const slider=document.getElementById("qualitySlider");
 const qualityValue=document.getElementById("qualityValue");
+const compressBtn=document.getElementById("compressBtn");
+
 let selectedFile;
 
 dropArea.addEventListener("click",()=>fileInput.click());
-fileInput.addEventListener("change",(e)=>{selectedFile=e.target.files[0];});
-dropArea.addEventListener("dragover",(e)=>{e.preventDefault();});
-dropArea.addEventListener("drop",(e)=>{e.preventDefault();selectedFile=e.dataTransfer.files[0];});
-slider.addEventListener("input",()=>{qualityValue.textContent=slider.value;});
+
+fileInput.addEventListener("change",(e)=>{
+selectedFile=e.target.files[0];
+});
+
+dropArea.addEventListener("dragover",(e)=>{
+e.preventDefault();
+dropArea.classList.add("active");
+});
+
+dropArea.addEventListener("dragleave",()=>{
+dropArea.classList.remove("active");
+});
+
+dropArea.addEventListener("drop",(e)=>{
+e.preventDefault();
+selectedFile=e.dataTransfer.files[0];
+dropArea.classList.remove("active");
+});
+
+slider.addEventListener("input",()=>{
+qualityValue.textContent=slider.value;
+});
 
 function compressImage(){
-if(!selectedFile){alert("Please upload an image first!");return;}
+
+if(!selectedFile){
+alert("Please upload an image first!");
+return;
+}
+
+compressBtn.disabled=true;
+compressBtn.textContent="Processing...";
+
 let reader=new FileReader();
 reader.readAsDataURL(selectedFile);
+
 reader.onload=function(event){
 let img=new Image();
 img.src=event.target.result;
+
 img.onload=function(){
+
 let canvas=document.createElement("canvas");
 let ctx=canvas.getContext("2d");
+
 canvas.width=img.width;
 canvas.height=img.height;
+
 ctx.drawImage(img,0,0);
+
 let compressedData=canvas.toDataURL("image/jpeg",slider.value);
+
+let originalSize=(selectedFile.size/1024).toFixed(2);
+let compressedSize=((compressedData.length*3/4)/1024).toFixed(2);
+let reduction=((1-(compressedSize/originalSize))*100).toFixed(1);
+
+document.getElementById("originalSize").textContent=originalSize+" KB";
+document.getElementById("compressedSize").textContent=compressedSize+" KB";
+document.getElementById("reduction").textContent=reduction+"%";
+
 document.getElementById("previewImage").src=compressedData;
 
 let downloadLink=document.getElementById("downloadLink");
 downloadLink.href=compressedData;
 downloadLink.download="compressed-image.jpg";
 downloadLink.style.display="inline-block";
+
+document.getElementById("resultBox").style.display="block";
+
+compressBtn.disabled=false;
+compressBtn.textContent="Compress Image";
+
 }
 }
+
 }
 </script>
 
