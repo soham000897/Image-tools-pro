@@ -3,15 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>JPG to PNG Converter | Pro Image Tools</title>
+
+<meta name="description" content="Convert JPG images to PNG online for free without uploading files. Fast, secure and fully browser-based JPG to PNG converter.">
+<link rel="canonical" href="https://soham000897.github.io/Image-tools-pro/jpg-to-png.html">
+
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RQ062SC78S"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-RQ062SC78S');
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-RQ062SC78S');
 </script>
+
 <style>
 *{
 margin:0;
@@ -32,15 +38,10 @@ display:flex;
 flex-direction:column;
 }
 
-/* NAVBAR */
 nav{
-background:rgba(15,23,42,0.9);
-backdrop-filter:blur(8px);
+background:#0f172a;
 padding:18px;
 text-align:center;
-position:sticky;
-top:0;
-z-index:1000;
 }
 
 nav a{
@@ -48,39 +49,34 @@ color:#cbd5e1;
 margin:0 15px;
 text-decoration:none;
 font-weight:500;
-transition:0.3s;
 }
 
-nav a:hover{
-color:white;
-}
+nav a:hover{color:white;}
 
-/* HERO */
 .hero{
 text-align:center;
-padding:80px 20px 60px;
-background:linear-gradient(135deg,#ffffff,#f1f5f9);
+padding:70px 20px 40px;
+background:white;
 }
 
 .hero h1{
-font-size:34px;
-margin-bottom:12px;
-font-weight:700;
-background:linear-gradient(135deg,#0f172a,#2563eb);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+font-size:28px;
+margin-bottom:10px;
 }
 
 .hero p{
-opacity:0.75;
+opacity:0.8;
 max-width:600px;
 margin:0 auto;
 }
 
-/* TOOL BOX */
+main{
+flex:1;
+}
+
 .container{
 max-width:750px;
-margin:60px auto;
+margin:50px auto;
 padding:40px;
 background:white;
 border-radius:22px;
@@ -93,7 +89,6 @@ border:2px dashed #2563eb;
 padding:35px;
 border-radius:16px;
 cursor:pointer;
-transition:0.3s;
 }
 
 .upload-box.active{
@@ -113,12 +108,6 @@ background:linear-gradient(135deg,#2563eb,#1e40af);
 color:white;
 font-size:15px;
 cursor:pointer;
-transition:0.3s;
-}
-
-button:hover{
-transform:translateY(-3px);
-box-shadow:0 12px 30px rgba(37,99,235,0.4);
 }
 
 button:disabled{
@@ -132,11 +121,6 @@ padding:25px;
 background:#f1f5f9;
 border-radius:16px;
 display:none;
-}
-
-.result p{
-margin-bottom:10px;
-font-size:14px;
 }
 
 .preview img{
@@ -156,52 +140,54 @@ text-decoration:none;
 display:inline-block;
 }
 
-/* FOOTER */
+.seo-section{
+max-width:800px;
+margin:60px auto;
+padding:20px;
+text-align:center;
+}
+
+.seo-section h2{
+margin-bottom:15px;
+}
+
 footer{
-margin-top:auto;
 padding:35px;
 text-align:center;
 background:#0f172a;
 color:#cbd5e1;
 }
 
-/* RESPONSIVE */
 @media (max-width:768px){
-
-.hero h1{
-font-size:24px;
-}
-
 .container{
 margin:30px 20px;
 padding:25px;
 }
-
 button{
 width:100%;
 }
-
 nav a{
 display:inline-block;
 margin:8px 10px;
 }
-
 }
 </style>
 </head>
 
 <body>
 
-<nav>
+<nav aria-label="Primary Navigation">
 <a href="index.html">Home</a>
 <a href="compressor.html">Compressor</a>
 <a href="resizer.html">Resizer</a>
 <a href="jpg-to-png.html">Converter</a>
 </nav>
 
+<main>
+
 <section class="hero">
-<h1>JPG to PNG Converter</h1>
-<p>Convert your JPG images to PNG instantly — fully private and browser-based.</p>
+<h1>Free JPG to PNG Converter</h1>
+<p>Convert JPG images to PNG instantly — fully private and browser-based.</p>
 </section>
 
 <div class="container">
@@ -224,11 +210,37 @@ Click or Drag & Drop Image Here
 
 </div>
 
+<section class="seo-section">
+<h2>How to Convert JPG to PNG Online?</h2>
+<p>
+Our JPG to PNG converter allows you to change image format instantly without uploading files. Simply upload your JPG image, convert it in your browser and download the PNG version securely.
+</p>
+
+<h2>Why Use Our JPG to PNG Converter?</h2>
+<ul style="list-style:none;padding:0;">
+<li>✔ 100% browser-based conversion</li>
+<li>✔ No file uploads</li>
+<li>✔ Fast and secure</li>
+<li>✔ Works on all devices</li>
+</ul>
+
+<p>
+Also try our 
+<a href="compressor.html">Image Compressor</a> and 
+<a href="resizer.html">Image Resizer</a>.
+</p>
+</section>
+
+</main>
+
 <footer>
-© 2026 Pro Image Tools — Secure • Fast • Professional
+© 2026 Pro Image Tools — Secure • Fast • Professional  
+<br><br>
+Built with ❤️ by Soham
 </footer>
 
 <script>
+/* ===== ORIGINAL WORKING SCRIPT (UNCHANGED) ===== */
 const uploadBox=document.getElementById("uploadBox");
 const fileInput=document.getElementById("fileInput");
 const convertBtn=document.getElementById("convertBtn");
