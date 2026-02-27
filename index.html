@@ -253,6 +253,263 @@ Pro Image Tools is a free online platform that allows users to compress images, 
 Built with ❤️ by Soham
 </span>
 </footer>
+<!-- ================= MINI AI FINAL STABLE ================= -->
 
+<style>
+:root{
+--bg:#ffffff;
+--text:#111827;
+--bot:#e5e7eb;
+--header:#1e40af;
+--user:#2563eb;
+}
+
+@media (prefers-color-scheme: dark){
+:root{
+--bg:#0f172a;
+--text:#e5e7eb;
+--bot:#1f2937;
+--header:#2563eb;
+--user:#3b82f6;
+}
+}
+
+#aiWrapper{
+position:fixed;
+bottom:20px;
+right:20px;
+z-index:9999;
+}
+
+#aiRobot{
+width:75px;
+height:75px;
+cursor:pointer;
+animation: float 4s ease-in-out infinite;
+transition: transform .3s ease;
+}
+
+#aiRobot:hover{
+transform: scale(1.08);
+}
+
+@keyframes float{
+0%{transform:translateY(0)}
+50%{transform:translateY(-12px)}
+100%{transform:translateY(0)}
+}
+
+.thinking .hand{
+animation:wave .4s infinite alternate;
+}
+
+@keyframes wave{
+from{transform:rotate(-10deg);}
+to{transform:rotate(10deg);}
+}
+
+#aiChat{
+position:fixed;
+bottom:115px;
+right:20px;
+width:340px;
+max-height:480px;
+background:var(--bg);
+color:var(--text);
+border-radius:22px;
+box-shadow:0 25px 70px rgba(0,0,0,0.35);
+display:none;
+flex-direction:column;
+overflow:hidden;
+}
+
+#aiHeader{
+background:var(--header);
+color:white;
+padding:14px;
+text-align:center;
+font-weight:600;
+}
+
+#aiMessages{
+flex:1;
+min-height:0;
+overflow-y:auto;
+padding:15px;
+font-size:14px;
+scroll-behavior:smooth;
+}
+
+.msg{
+margin-bottom:12px;
+padding:10px 14px;
+border-radius:14px;
+max-width:75%;
+word-break:break-word;
+overflow-wrap:break-word;
+}
+
+.user{
+background:var(--user);
+color:white;
+margin-left:auto;
+}
+
+.bot{
+background:var(--bot);
+}
+
+#aiInputBox{
+display:flex;
+border-top:1px solid #ccc;
+}
+
+#aiInput{
+flex:1;
+border:none;
+padding:10px;
+outline:none;
+background:transparent;
+color:var(--text);
+}
+
+#aiSend{
+background:var(--user);
+color:white;
+border:none;
+padding:10px 14px;
+cursor:pointer;
+}
+
+@media(max-width:768px){
+#aiChat{
+width:94%;
+right:3%;
+}
+}
+</style>
+
+<div id="aiWrapper">
+<svg id="aiRobot" viewBox="0 0 100 100">
+<rect x="15" y="10" width="70" height="50" rx="20" fill="#2563eb"/>
+<circle id="eye1" cx="40" cy="35" r="5" fill="white"/>
+<circle id="eye2" cx="60" cy="35" r="5" fill="white"/>
+<rect class="hand" x="10" y="30" width="8" height="20" rx="4" fill="#1e40af"/>
+<rect class="hand" x="82" y="30" width="8" height="20" rx="4" fill="#1e40af"/>
+<rect x="35" y="65" width="10" height="20" rx="4" fill="#1e40af"/>
+<rect x="55" y="65" width="10" height="20" rx="4" fill="#1e40af"/>
+</svg>
+</div>
+
+<div id="aiChat">
+<div id="aiHeader">AI Assistant</div>
+<div id="aiMessages"></div>
+<div id="aiInputBox">
+<input type="text" id="aiInput" placeholder="Ask something...">
+<button id="aiSend">Send</button>
+</div>
+</div>
+
+<script>
+const robot=document.getElementById("aiRobot");
+const chat=document.getElementById("aiChat");
+const input=document.getElementById("aiInput");
+const send=document.getElementById("aiSend");
+const messages=document.getElementById("aiMessages");
+
+robot.onclick=()=>{
+chat.style.display=chat.style.display==="flex"?"none":"flex";
+};
+
+send.onclick=sendMessage;
+input.addEventListener("keypress",e=>{
+if(e.key==="Enter") sendMessage();
+});
+
+// Random Welcome
+const welcomes=[
+"Hi 👋 Need help?",
+"I can guide you quickly 😊",
+"Ask about compression or resize!"
+];
+
+if(!sessionStorage.getItem("miniWelcome")){
+addMessage(welcomes[Math.floor(Math.random()*welcomes.length)],"bot");
+sessionStorage.setItem("miniWelcome","yes");
+}
+
+function sendMessage(){
+let text=input.value.trim();
+if(!text) return;
+
+addMessage(text,"user");
+input.value="";
+robot.classList.add("thinking");
+
+setTimeout(()=>{
+let reply=generateReply(text);
+addMessage(reply,"bot");
+robot.classList.remove("thinking");
+},400);
+}
+
+function addMessage(text,type){
+let div=document.createElement("div");
+div.className="msg "+type;
+div.innerHTML=text;
+messages.appendChild(div);
+messages.scrollTop=messages.scrollHeight;
+}
+
+function generateReply(raw){
+
+let input = raw.toLowerCase().trim();
+
+// Long / complex → redirect
+if(
+input.length > 70 ||
+input.includes("why") ||
+input.includes("explain") ||
+input.includes("difference") ||
+input.includes("how does") ||
+input.includes("which is better")
+){
+return 'This needs detailed explanation.<br><a href="ai.html" style="color:#2563eb;font-weight:600;">Open Full Assistant →</a>';
+}
+
+// Smart Short Replies
+if(input.includes("compress") || input.includes("reduce size")){
+return "Open Compressor → Use 0.6–0.8 quality for best balance.";
+}
+
+if(input.includes("resize") || input.includes("change size")){
+return "Use Resizer → Enter width & height in pixels.";
+}
+
+if(input.includes("private") || input.includes("safe") || input.includes("secure")){
+return "Yes ✅ Everything runs inside your browser. No upload.";
+}
+
+if(input.includes("jpg") && input.includes("png")){
+return "JPG = smaller for photos. PNG = supports transparency.";
+}
+
+if(input.includes("quality")){
+return "0.7 is usually best balance for compression.";
+}
+
+return 'I can help with compression, resize & formats 😊<br><a href="ai.html" style="color:#2563eb;font-weight:600;">Open Assistant →</a>';
+}
+
+// Blink
+setInterval(()=>{
+document.getElementById("eye1").setAttribute("r","1");
+document.getElementById("eye2").setAttribute("r","1");
+setTimeout(()=>{
+document.getElementById("eye1").setAttribute("r","5");
+document.getElementById("eye2").setAttribute("r","5");
+},150);
+},4000);
+</script>
 </body>
 </html>
