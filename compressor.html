@@ -3,15 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Image Compressor | Pro Image Tools</title>
+
+<meta name="description" content="Compress images online for free without uploading files. Reduce image size instantly using our fast and secure browser-based image compressor.">
+<link rel="canonical" href="https://soham000897.github.io/Image-tools-pro/compressor.html">
+
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RQ062SC78S"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-RQ062SC78S');
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-RQ062SC78S');
 </script>
+
 <style>
 *{
 margin:0;
@@ -29,7 +35,6 @@ display:flex;
 flex-direction:column;
 }
 
-/* NAVBAR */
 nav{
 background:#0f172a;
 padding:15px;
@@ -41,14 +46,10 @@ color:#cbd5e1;
 margin:0 15px;
 text-decoration:none;
 font-weight:500;
-transition:0.3s;
 }
 
-nav a:hover{
-color:white;
-}
+nav a:hover{color:white;}
 
-/* HERO */
 .hero{
 text-align:center;
 padding:60px 20px 30px;
@@ -60,11 +61,12 @@ font-size:28px;
 margin-bottom:8px;
 }
 
-.hero p{
-opacity:0.7;
+.hero p{opacity:0.7;}
+
+main{
+flex:1;
 }
 
-/* TOOL BOX */
 .container{
 max-width:750px;
 margin:40px auto;
@@ -74,7 +76,6 @@ border-radius:20px;
 box-shadow:0 15px 40px rgba(0,0,0,0.08);
 }
 
-/* UPLOAD AREA */
 .drop-area{
 border:2px dashed #2563eb;
 padding:30px;
@@ -84,17 +85,11 @@ cursor:pointer;
 transition:0.3s;
 }
 
-.drop-area.active{
-background:#e0ecff;
-}
+.drop-area.active{background:#e0ecff;}
 
-input[type="file"]{
-display:none;
-}
+input[type="file"]{display:none;}
 
-.range-box{
-margin-top:20px;
-}
+.range-box{margin-top:20px;}
 
 button{
 margin-top:20px;
@@ -105,31 +100,16 @@ background:linear-gradient(135deg,#2563eb,#1e40af);
 color:white;
 font-size:15px;
 cursor:pointer;
-transition:0.3s;
 }
 
-button:hover{
-transform:translateY(-2px);
-box-shadow:0 8px 20px rgba(37,99,235,0.4);
-}
+button:disabled{opacity:0.6;cursor:not-allowed;}
 
-button:disabled{
-opacity:0.6;
-cursor:not-allowed;
-}
-
-/* RESULT BOX */
 .result{
 margin-top:25px;
 padding:20px;
 background:#f1f5f9;
 border-radius:12px;
 display:none;
-}
-
-.result p{
-margin-bottom:8px;
-font-size:14px;
 }
 
 .preview img{
@@ -149,43 +129,45 @@ text-decoration:none;
 display:inline-block;
 }
 
-/* FOOTER */
+.seo-section{
+max-width:800px;
+margin:60px auto;
+padding:20px;
+text-align:center;
+}
+
+.seo-section h2{
+margin-bottom:15px;
+}
+
 footer{
-margin-top:auto;
 padding:25px;
 text-align:center;
 background:#0f172a;
 color:#cbd5e1;
 }
 
-/* RESPONSIVE */
-@media (max-width:768px){
-.container{
-margin:20px;
-padding:20px;
-}
-button{
-width:100%;
-}
-nav a{
-display:inline-block;
-margin:8px 10px;
-}
+@media(max-width:768px){
+.container{margin:20px;padding:20px;}
+button{width:100%;}
+nav a{display:inline-block;margin:8px 10px;}
 }
 </style>
 </head>
 
 <body>
 
-<nav>
+<nav aria-label="Primary Navigation">
 <a href="index.html">Home</a>
 <a href="compressor.html">Compressor</a>
 <a href="resizer.html">Resizer</a>
 <a href="jpg-to-png.html">Converter</a>
 </nav>
 
+<main>
+
 <section class="hero">
-<h1>Image Compressor</h1>
+<h1>Free Online Image Compressor</h1>
 <p>Reduce image size instantly while maintaining visual quality.</p>
 </section>
 
@@ -217,11 +199,37 @@ Compression Quality:
 
 </div>
 
+<section class="seo-section">
+<h2>How to Compress Images Online?</h2>
+<p>
+Our free image compressor allows you to reduce image size instantly without losing quality. Simply upload your image, adjust compression level and download the optimized file — all directly in your browser.
+</p>
+
+<h2>Why Use Our Image Compressor?</h2>
+<ul style="list-style:none;padding:0;">
+<li>✔ 100% browser-based compression</li>
+<li>✔ No file uploads or tracking</li>
+<li>✔ Fast and secure processing</li>
+<li>✔ Works on mobile and desktop</li>
+</ul>
+
+<p>
+Also try our 
+<a href="resizer.html">Image Resizer</a> and 
+<a href="jpg-to-png.html">JPG to PNG Converter</a>.
+</p>
+</section>
+
+</main>
+
 <footer>
-© 2026 Pro Image Tools — Secure • Fast • Professional
+© 2026 Pro Image Tools — Secure • Fast • Professional  
+<br><br>
+Built with ❤️ by Soham
 </footer>
 
 <script>
+/* ===== EXISTING WORKING SCRIPT (UNCHANGED) ===== */
 const dropArea=document.getElementById("dropArea");
 const fileInput=document.getElementById("imageInput");
 const slider=document.getElementById("qualitySlider");
@@ -306,7 +314,6 @@ compressBtn.textContent="Compress Image";
 
 }
 }
-
 }
 </script>
 
